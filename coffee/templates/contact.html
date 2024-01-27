@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-image: url('https://cdn.pixabay.com/photo/2016/03/26/13/09/workspace-1280538_1280.jpg'); /* Replace with your background image URL */
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff; /* Text color on top of the background */
+      animation: sparkling 5s linear infinite; /* Sparkling animation */
+    }
+
+    h1 {
+      color: #fcf0ca; /* Heading color */
+      text-align: center;
+      margin-bottom: 10px;
+      animation: typing 5s steps(12, end), blinking-cursor 0.5s step-end infinite; /* Typing animation */
+    }
+
+    p {
+      color: #f6d3c1; /* Paragraph text color */
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form {
+      max-width: 400px;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+      padding: 25px;
+      padding-right:40px;
+      margin: 0 auto 20px auto; /* Slightly merged into the background */
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #000000; /* Label color */
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 9px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #007bff; /* Button background color */
+      color: #fcfcfc;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      display: block;
+      margin: 0 auto; /* Centering the button */
+      margin-top: 10px; /* Space between form and button */
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+    a{
+        text-decoration: none;
+        color: #fff;
+    }
+    #msg {
+      color: #00cc00; /* Success message color */
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* Sparkling animation */
+    @keyframes sparkling {
+      0%, 100% {
+        filter: brightness(1);
+      }
+      50% {
+        filter: brightness(1.2);
+      }
+    }
+
+    /* Typing animation for the h1 element */
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    /* Blinking cursor animation for the h1 element */
+    @keyframes blinking-cursor {
+      from,
+      to {
+        border-right-color: transparent;
+      }
+      50% {
+        border-right-color: #ffcc00; /* Cursor color */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Contact Us</h1>
+
+  <p>Order the Coffee..Enjoy the Aesthetic Coffee!</p>
+
+  <form id="contactForm" name="submit-to-google-sheet">
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Your Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="coffee">Name the Coffee:</label>
+    <input type="text" id="coffee" name="coffee" required>
+
+    <label for="message">Your Address:</label>
+    <textarea id="message" name="message" rows="4" required></textarea>
+
+    <button type="submit">Submit</button>
+  </form>
+  <span id="msg"></span>
+
+  <button><a href="{% url 'home' %}">Continue Shopping</a></button>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbw6LtKJmwFJuftprr57_bP_Y42seMtUfkWOVcaI-u_Xb1og-jW2VsxbOiCx58_t7a_G/exec'
+    const form = document.forms['submit-to-google-sheet']
+    const msg=document.getElementById("msg");
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+          msg.innerHTML="Coffee Ordered successfully! Thanks for Ordering..!"
+          setTimeout(function(){
+            msg.innerHTML=""
+          },5000)
+          form.reset()
+        })
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
+</body>
+</html>

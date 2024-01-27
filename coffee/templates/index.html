@@ -1,0 +1,136 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Coffee Shop</title>
+    <style>
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2016/03/26/13/09/workspace-1280538_1280.jpg'); /* Replace with your actual background image URL or path */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            animation: fadeIn 2s ease; /* Add a fade-in animation */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        h1, p, a {
+            text-align: center;
+            font-size: 2em; /* Increase the font size for the text */
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0 auto;
+            color: #F7F0E3; /* Set initial color */
+        }
+
+        .typewriter {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0 auto;
+        }
+
+        .typewriter span {
+            display: inline-block;
+            animation: colorChange 3.5s infinite, typing 3.5s steps(30, end); /* Add color-changing and typing animations */
+        }
+
+        @keyframes colorChange {
+            0% {
+                color: #F7F0E3;
+            }
+            25% {
+                color: #D4A373;
+            }
+            50% {
+                color: #BF8C61;
+            }
+            75% {
+                color: #8E583E;
+            }
+            100% {
+                color: #5D2E15;
+            }
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        .btn-shop-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-shop {
+            position: relative;
+            overflow: hidden;
+            border: none;
+            background: #FFD699; /* Bright color that looks good on coffee color background */
+            cursor: pointer;
+            color: #5D2E15; /* Text color */
+            font-weight: bold;
+            font-size: 2em; /* Increase the font size for the button */
+            padding: 15px 30px; /* Increase padding for a larger button */
+            text-decoration: none;
+            border-radius: 10px; /* Add rounded corners */
+        }
+
+        .btn-shop::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, #F7F0E3, #FFD699);
+            border-radius: 50%;
+            opacity: 0;
+            transition: width 0.5s, height 0.5s, opacity 0.5s;
+        }
+
+        .btn-shop:hover::before {
+            width: 200px;
+            height: 200px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Welcome to Coffee Shop</h1>
+        <p><span class="typewriter"><span>Start your day with the finest coffee collection. Explore and shop now!</span></span></p>
+        <div class="btn-shop-container">
+            <button class="btn-shop" onclick="navigateToShop()">Shop Coffee</button>
+        </div>
+    </div>
+
+    <script>
+        function navigateToShop() {
+            // Redirect to the 'home' page using JavaScript
+            window.location.href = "{% url 'home' %}";
+        }
+    </script>
+</body>
+</html>
